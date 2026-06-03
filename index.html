@@ -137,10 +137,14 @@
     }
     .hero-title {
       color: var(--text);
-      max-width: 390px;
-      font-size: 40px;
-      line-height: .96;
+      max-width: 420px;
+      font-size: 38px;
+      line-height: .98;
       letter-spacing: 0;
+    }
+    .hero-title span {
+      display: block;
+      white-space: nowrap;
     }
     .tagline { margin-top: 14px; font-size: 13px; color: var(--muted); }
     .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
@@ -427,7 +431,7 @@
       .metric-grid, .roadmap, .row { grid-template-columns: 1fr; }
       .brand-mark { font-size: 12px; letter-spacing: .12em; }
       .brand-logo { width: 40px; height: 40px; }
-      .hero-title { font-size: 36px; max-width: 340px; }
+      .hero-title { font-size: 34px; max-width: 340px; }
     }
   </style>
 </head>
@@ -440,7 +444,7 @@
             <img class="brand-logo" src="logos/tokenmaster-pinball-logo-cutout.png" alt="TokenMaster AI logo" />
             <span>TokenMaster AI</span>
           </div>
-          <h1 class="hero-title">Cost Intelligence for AI Agents</h1>
+          <h1 class="hero-title"><span>Cost Intelligence</span><span>for AI Agents</span></h1>
           <p class="tagline">Predict cost. Route smarter. Spend less.</p>
         </div>
 
