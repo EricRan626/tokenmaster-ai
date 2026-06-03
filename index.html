@@ -119,26 +119,26 @@
     }
     .brand-mark {
       display: inline-flex;
-      gap: 11px;
+      gap: 13px;
       align-items: center;
       color: var(--cyan);
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 900;
       letter-spacing: .16em;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
     .brand-logo {
-      width: 46px;
-      height: 46px;
+      width: 52px;
+      height: 52px;
       flex: 0 0 auto;
       object-fit: contain;
       filter: drop-shadow(0 10px 22px rgba(0,0,0,.38)) drop-shadow(0 0 12px rgba(112,223,210,.16));
     }
     .hero-title {
       color: var(--text);
-      max-width: 420px;
-      font-size: 38px;
+      max-width: 440px;
+      font-size: 40px;
       line-height: .98;
       letter-spacing: 0;
     }
@@ -201,6 +201,23 @@
     }
     .bar { height: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; margin-top: 12px; }
     .bar div { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--red), var(--yellow), var(--green)); }
+    .brain-output {
+      min-height: 94px;
+      margin-top: 16px;
+      white-space: pre-wrap;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 13px;
+      color: #dbe3ec;
+      background: #0f1216;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .brain-status {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
     table { width: 100%; border-collapse: collapse; font-size: 14px; }
     th, td { padding: 13px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
     th { color: var(--muted); font-size: 12px; }
@@ -255,55 +272,6 @@
     }
     .code-box {
       min-height: 302px;
-      white-space: pre-wrap;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-      color: #dbe3ec;
-      background: #0f1216;
-      font: 12px/1.58 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .live-api {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 260px;
-      gap: 16px;
-      align-items: start;
-    }
-    .api-status {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-      background: var(--surface);
-    }
-    .api-status strong {
-      display: block;
-      font-size: 21px;
-      margin: 5px 0 4px;
-    }
-    .secret-input {
-      margin-top: 12px;
-    }
-    .secret-input input {
-      font-size: 12px;
-      padding: 10px 11px;
-    }
-    .api-mode {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 12px;
-    }
-    .api-mode button {
-      padding: 9px 10px;
-      font-size: 12px;
-    }
-    .api-mode button.active {
-      color: #07100f;
-      background: linear-gradient(135deg, var(--cyan), var(--green));
-    }
-    .live-output {
-      min-height: 178px;
-      margin-top: 14px;
       white-space: pre-wrap;
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -420,7 +388,6 @@
       .app { grid-template-columns: 1fr; }
       aside { position: relative; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
       .hero, .grid { grid-template-columns: 1fr; }
-      .live-api { grid-template-columns: 1fr; }
       .metric-grid, .roadmap { grid-template-columns: 1fr 1fr; }
       .market-grid { grid-template-columns: 1fr; }
       .marketplace-header { grid-template-columns: 1fr; }
@@ -430,8 +397,8 @@
       main, aside { padding: 18px; }
       .metric-grid, .roadmap, .row { grid-template-columns: 1fr; }
       .brand-mark { font-size: 12px; letter-spacing: .12em; }
-      .brand-logo { width: 40px; height: 40px; }
-      .hero-title { font-size: 34px; max-width: 340px; }
+      .brand-logo { width: 42px; height: 42px; }
+      .hero-title { font-size: 36px; max-width: 360px; }
     }
   </style>
 </head>
@@ -496,6 +463,8 @@
             <div class="metric"><span>Complexity</span><strong id="complexity">--</strong><small id="time">--</small></div>
           </div>
           <div class="bar"><div id="efficiencyBar" style="width:68%"></div></div>
+          <div class="brain-output" id="aiBrain">MiroMind will act as the reasoning backend when you run the forecast.</div>
+          <p class="brain-status" id="brainStatus">Powered by MiroMind API through a secure serverless proxy.</p>
         </div>
 
         <div class="panel">
@@ -522,32 +491,6 @@
           </thead>
           <tbody id="steps"></tbody>
         </table>
-      </section>
-
-      <section class="panel" style="margin-top:18px">
-        <div class="live-api">
-          <div>
-            <h2>MiroMind Live Deep Research API</h2>
-            <p>This MVP includes a real MiroMind API integration. It sends the current agent task to <strong>mirothinker-1-7-deepresearch-mini</strong> through a secure serverless proxy and returns an execution-cost optimization plan.</p>
-            <div class="live-output" id="miroOutput">Click "Run MiroMind API" to generate a live optimization summary for the current task.</div>
-          </div>
-          <div class="api-status">
-            <small>Required competition API</small>
-            <strong id="miroStatus">Ready</strong>
-            <p id="miroUsage">Powered by MiroMind. API key is kept server-side.</p>
-            <div class="api-mode">
-              <button class="ghost-button active" id="serverMode" type="button">Server proxy</button>
-              <button class="ghost-button" id="directMode" type="button">Browser key</button>
-            </div>
-            <div class="secret-input" id="directKeyBox" style="display:none">
-              <label for="miroKey">Temporary MiroMind API key</label>
-              <input id="miroKey" type="password" placeholder="sk-..." autocomplete="off" />
-              <p class="note">Session only. Not stored in the page. Use server proxy for public demos.</p>
-            </div>
-            <div style="height:12px"></div>
-            <button id="runMiro">Run MiroMind API</button>
-          </div>
-        </div>
       </section>
 
       <section class="grid">
@@ -1008,27 +951,6 @@ Cost rules:
       }, null, 2);
     }
 
-    let miroMode = "server";
-
-    function buildMiroPrompt() {
-      return [
-        "You are TokenMaster AI, a cost intelligence agent for AI agent workflows.",
-        "Analyze the user's agent task and return a concise, demo-ready optimization plan.",
-        "Do not expose private reasoning. Do not mention hidden chain-of-thought.",
-        "",
-        `Task: ${state.task.value}`,
-        `Run mode: ${state.mode.value}`,
-        `Approximate source count: ${state.sources.value}`,
-        "",
-        "Return exactly these sections:",
-        "1. Cost Risk",
-        "2. Token Waste Sources",
-        "3. Recommended Model Routing",
-        "4. Prompt Optimization",
-        "5. One-sentence business value"
-      ].join("\n");
-    }
-
     async function callMiroServer() {
       const response = await fetch("/.netlify/functions/miromind-chat", {
         method: "POST",
@@ -1044,63 +966,37 @@ Cost rules:
       return data;
     }
 
-    async function callMiroDirect() {
-      const key = document.querySelector("#miroKey").value.trim();
-      if (!key) throw new Error("Paste a temporary MiroMind API key or switch to Server proxy mode.");
-
-      const response = await fetch("https://api.miromind.ai/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${key}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "mirothinker-1-7-deepresearch-mini",
-          messages: [{ role: "user", content: buildMiroPrompt() }]
-        })
-      });
-
-      const text = await response.text();
-      if (!response.ok) {
-        throw new Error(text.slice(0, 500) || "MiroMind direct request failed.");
-      }
-      return parseMiroText(text);
+    function resetBrainMessage() {
+      document.querySelector("#aiBrain").textContent = "MiroMind will act as the reasoning backend when you run the forecast.";
+      document.querySelector("#brainStatus").textContent = "Powered by MiroMind API through a secure serverless proxy.";
     }
 
-    function parseMiroText(text) {
-      const trimmed = text.trim();
-      if (!trimmed.startsWith("data:")) {
-        const body = JSON.parse(trimmed);
-        return {
-          ok: true,
-          model: body.model || "mirothinker-1-7-deepresearch-mini",
-          content: body.choices?.[0]?.message?.content || "",
-          usage: body.usage || null
-        };
+    async function runAgentForecast() {
+      const button = document.querySelector("#predict");
+      const brain = document.querySelector("#aiBrain");
+      const status = document.querySelector("#brainStatus");
+      render();
+      button.disabled = true;
+      button.textContent = "Running MiroMind brain...";
+      brain.textContent = "Calling mirothinker-1-7-deepresearch-mini to refine the cost forecast...";
+      status.textContent = "MiroMind API is running behind the main TokenMaster AI workflow.";
+      try {
+        const data = await callMiroServer();
+        const tokenLine = data.usage
+          ? `MiroMind usage: ${data.usage.total_tokens || "?"} total tokens (${data.usage.prompt_tokens || "?"} prompt, ${data.usage.completion_tokens || "?"} completion).`
+          : "MiroMind usage returned by API was unavailable.";
+        brain.textContent = data.content || "MiroMind returned successfully, but no text content was available.";
+        status.textContent = tokenLine;
+      } catch (error) {
+        brain.textContent = "Local forecast is ready. MiroMind backend needs deployment/API-region setup before live judging.\n\n" + error.message;
+        status.textContent = "Set MIROMIND_API_KEY in Netlify. If region_not_supported appears, deploy the proxy in a supported region.";
+      } finally {
+        button.disabled = false;
+        button.textContent = "Predict agent spend";
       }
-
-      let content = "";
-      let usage = null;
-      let model = "mirothinker-1-7-deepresearch-mini";
-      for (const line of trimmed.split(/\r?\n/)) {
-        if (!line.startsWith("data:")) continue;
-        const chunk = line.slice(5).trim();
-        if (!chunk || chunk === "[DONE]") continue;
-        try {
-          const event = JSON.parse(chunk);
-          model = event.model || model;
-          const delta = event.choices?.[0]?.delta || {};
-          if (typeof delta.content === "string") content += delta.content;
-          if (typeof delta.agent_summary === "string" && content.length < 20) content += delta.agent_summary;
-          if (event.usage) usage = event.usage;
-        } catch {
-          // Ignore malformed chunks.
-        }
-      }
-      return { ok: true, model, content: content.trim(), usage };
     }
 
-    document.querySelector("#predict").addEventListener("click", render);
+    document.querySelector("#predict").addEventListener("click", runAgentForecast);
     document.querySelectorAll(".chip").forEach(chip => {
       chip.addEventListener("click", () => {
         state.task.value = chip.dataset.task;
@@ -1110,9 +1006,9 @@ Cost rules:
       });
     });
     ["input", "change"].forEach(eventName => {
-      state.task.addEventListener(eventName, render);
-      state.mode.addEventListener(eventName, render);
-      state.sources.addEventListener(eventName, render);
+      state.task.addEventListener(eventName, () => { render(); resetBrainMessage(); });
+      state.mode.addEventListener(eventName, () => { render(); resetBrainMessage(); });
+      state.sources.addEventListener(eventName, () => { render(); resetBrainMessage(); });
     });
     document.querySelector("#copyPrompt").addEventListener("click", async () => {
       await navigator.clipboard.writeText(document.querySelector("#promptRewrite").textContent);
@@ -1126,50 +1022,6 @@ Cost rules:
     });
     document.querySelector("#mailtoFeedback").addEventListener("click", () => {
       location.href = `mailto:incubator@epicconnector.ai?subject=TokenMaster AI feedback&body=${encodeURIComponent(feedbackPackage())}`;
-    });
-    document.querySelector("#serverMode").addEventListener("click", () => {
-      miroMode = "server";
-      document.querySelector("#serverMode").classList.add("active");
-      document.querySelector("#directMode").classList.remove("active");
-      document.querySelector("#directKeyBox").style.display = "none";
-      document.querySelector("#miroUsage").textContent = "Powered by MiroMind. API key is kept server-side.";
-    });
-    document.querySelector("#directMode").addEventListener("click", () => {
-      miroMode = "direct";
-      document.querySelector("#directMode").classList.add("active");
-      document.querySelector("#serverMode").classList.remove("active");
-      document.querySelector("#directKeyBox").style.display = "block";
-      document.querySelector("#miroUsage").textContent = "Direct mode uses your temporary key in this browser session only.";
-    });
-    document.querySelector("#runMiro").addEventListener("click", async () => {
-      const button = document.querySelector("#runMiro");
-      const status = document.querySelector("#miroStatus");
-      const usage = document.querySelector("#miroUsage");
-      const output = document.querySelector("#miroOutput");
-      button.disabled = true;
-      button.textContent = "Calling API...";
-      status.textContent = "Running";
-      usage.textContent = "Calling mirothinker-1-7-deepresearch-mini via serverless proxy.";
-      output.textContent = "Waiting for MiroMind response...";
-      try {
-        usage.textContent = miroMode === "server"
-          ? "Calling mirothinker-1-7-deepresearch-mini via serverless proxy."
-          : "Calling mirothinker-1-7-deepresearch-mini directly from this browser.";
-        const data = miroMode === "server" ? await callMiroServer() : await callMiroDirect();
-        status.textContent = "Connected";
-        const tokenLine = data.usage
-          ? `Usage: ${data.usage.total_tokens || "?"} total tokens (${data.usage.prompt_tokens || "?"} prompt, ${data.usage.completion_tokens || "?"} completion)`
-          : "Usage returned by API was unavailable.";
-        usage.textContent = tokenLine;
-        output.textContent = data.content;
-      } catch (error) {
-        status.textContent = "Setup needed";
-        usage.textContent = "Set MIROMIND_API_KEY in Netlify environment variables. If MiroMind returns region_not_supported, deploy the proxy in a supported region.";
-        output.textContent = `Live API call is not available in this environment.\n\n${error.message}`;
-      } finally {
-        button.disabled = false;
-        button.textContent = "Run MiroMind API";
-      }
     });
     render();
   </script>

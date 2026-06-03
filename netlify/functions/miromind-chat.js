@@ -27,19 +27,18 @@ exports.handler = async function handler(event) {
 
   const prompt = [
     "You are TokenMaster AI, a cost intelligence agent for AI agent workflows.",
-    "Analyze the user's agent task and return a concise, demo-ready optimization plan.",
+    "Analyze the user's agent task and return a concise, demo-ready optimization plan for the main forecast panel.",
     "Do not expose private reasoning. Do not mention hidden chain-of-thought.",
     "",
     `Task: ${task}`,
     `Run mode: ${mode}`,
     `Approximate source count: ${sources}`,
     "",
-    "Return exactly these sections:",
-    "1. Cost Risk",
-    "2. Token Waste Sources",
-    "3. Recommended Model Routing",
-    "4. Prompt Optimization",
-    "5. One-sentence business value"
+    "Return exactly four short bullet points:",
+    "- Cost risk:",
+    "- Token waste avoided:",
+    "- Recommended route:",
+    "- Business value:"
   ].join("\n");
 
   try {
